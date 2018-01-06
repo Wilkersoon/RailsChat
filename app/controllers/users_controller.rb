@@ -1,30 +1,35 @@
 class UsersController < ApplicationController
   include SessionsHelper
-  before_action :set_user, except: [:index, :new, :index_json]
+  before_action :set_user, except: [:index, :new, :index_json, :create]
   before_action :logged_in, only: [:show]
   before_action :correct_user, only: :show
-
+  
   def new
     @user=User.new
   end
 
+  def show
+     @user = User.find(params[:id])
+  end
+
+  def edit
+     @user = User.find(params[:id])
+  end
+  
   def create
     @user=User.new(user_params)
     if @user.save
-      @user.create_salary
-      @user.create_performance
-      redirect_to users_path, flash: {success: "添加成功"}
+      #@user.create_salary
+      #@user.create_performance
+     redirect_to users_path, flash: {success: "添加成功"}
     else
       flash[:warning] = "账号信息填写有误,请重试"
       render 'new'
     end
   end
 
-  def show
-  end
 
-  def edit
-  end
+
 
   def update
     if @user.update_attributes(user_params)
@@ -41,6 +46,7 @@ class UsersController < ApplicationController
   end
 
   def index
+    
     @users=User.search(params).paginate(:page => params[:page], :per_page => 10)
   end
 
@@ -65,7 +71,7 @@ class UsersController < ApplicationController
 
   def correct_user
     unless current_user == @user or current_user.role == 5
-      redirect_to user_path(current_user), flash: {:danger => '您没有权限浏览他人信息'}
+      redirect_to chat_path(current_user), flash: {:danger => '您没有权限浏览他人信息'}
     end
   end
 

@@ -80,4 +80,7 @@ class User < ActiveRecord::Base
     where.not(id: user)
   end
 
+
+          
+
 end
