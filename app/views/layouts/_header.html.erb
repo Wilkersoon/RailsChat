@@ -10,7 +10,13 @@
     <ul class="nav navbar-nav navbar-right">
 
       <% if current_user %>
-
+          <%if current_user.role != 5%>
+          <li>
+            <%= link_to user_manage_path(current_user), class: "dropbtn" do %>
+                Manage  <i class="fa fa-object-ungroup"></i>
+            <% end %>
+          </li>
+          <%end%>
           <li>
             <%= link_to chats_path, class: "dropbtn" do %>
                 ChatRoom  <i class="fa fa-wechat"></i>

@@ -1,17 +1,17 @@
 class UsersController < ApplicationController
   include SessionsHelper
-  before_action :set_user, except: [:index, :new, :index_json, :create]
-  before_action :logged_in, only: [:show]
-  before_action :correct_user, only: :show
+  before_action :set_user, except: [:index, :new, :index_json, :create, :manage, :usersshow]
+  # before_action :logged_in, only: [:show]
+  # before_action :correct_user, only: :show
   
   def new
     @user=User.new
   end
 
   def show
-     @user = User.find(params[:id])
+     @user =  User.find(params[:id])
   end
-
+  
   def edit
      @user = User.find(params[:id])
   end
@@ -28,9 +28,6 @@ class UsersController < ApplicationController
     end
   end
 
-
-
-
   def update
     if @user.update_attributes(user_params)
       flash={:info => "更新成功"}
@@ -42,7 +39,11 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to users_path(new: false), flash: {success: "用户删除"}
+    redirect_to user_manage_path(current_user), flash: {success: "用户删除"}
+  end
+  
+  def manage
+      @users=User.search(params).paginate(:page => params[:page], :per_page => 1000)
   end
 
   def index

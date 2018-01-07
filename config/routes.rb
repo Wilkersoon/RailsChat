@@ -65,10 +65,10 @@ Rails.application.routes.draw do
   #  end
   #end
   
-  resources :users
-  match '/signup', to: 'users#new', via: 'get'
+  resources :users do
+      match '/manage', to: 'users#manage', via: 'get'
+  end
 
-  
   resources :salaries
   resources :performances
   resources :announcements
