@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include SessionsHelper
-  before_action :set_user, except: [:index, :new, :index_json, :create, :manage, :usersshow]
+  before_action :set_user, except: [:index, :new, :index_json, :create, :manage]
   # before_action :logged_in, only: [:show]
   # before_action :correct_user, only: :show
   
@@ -21,20 +21,28 @@ class UsersController < ApplicationController
     if @user.save
       #@user.create_salary
       #@user.create_performance
-     redirect_to users_path, flash: {success: "添加成功"}
+      redirect_to root_path, flash: {success: "添加成功"}
     else
       flash[:warning] = "账号信息填写有误,请重试"
-      render 'new'
+      redirect_to new_user_path
     end
   end
 
   def update
-    if @user.update_attributes(user_params)
-      flash={:info => "更新成功"}
+    if current_user.role!=5
+      if @user.update_attributes(user_params)
+        flash={:info => "更新成功"}
+      else
+        flash={:warning => "更新失败"}
+      end
     else
-      flash={:warning => "更新失败"}
+      if @user.update_attributes(user_params1)
+        flash={:info => "更新成功"}
+      else
+        flash={:warning => "更新失败"}
+      end
     end
-    redirect_to users_path, flash: flash
+    redirect_to user_path, flash: flash
   end
 
   def destroy
@@ -59,8 +67,12 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :sex, :department_id, :password,
+    params.require(:user).permit(:name, :email, :sex, :department_id, :password, :password_confirmation,
                                  :phonenumber, :status)
+  end
+  def user_params1
+    params.require(:user).permit(:name, :email, :sex, :department_id, :password, :password_confirmation,
+                                 :phonenumber, :status, :role)
   end
 
 # Confirms a logged-in user.

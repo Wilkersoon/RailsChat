@@ -1,39 +1,46 @@
+<h1>User_Info</h1>
 <% provide(:title, @user.name) %>
 
 <div class="row">
   <aside class="span4">
     <section>
-      <h1>
+      <h2>
+        &nbsp;
         <%= gravatar_for @user %>
         <%= @user.name %>
-      </h1>
+      </h2>
     </section>
     </aside>
 </div>
 
-  <h2>
-    <strong>Name:</strong>
+  <h3>
+    <strong>Email:</strong>
     <%= @user.email %>
-  </h2>
-  
-  <p>
-    <strong>role:</strong>
-    <%= @user.role %>
-  </p>
-  
-  <p>
-    <strong>Phonenumber:</strong>
-    <%= @user.phonenumber %>
-  </p>
-  
-   <p>
+  </h3>
+    
+  <h3>
     <strong>Sex:</strong>
     <%= @user.sex %>
-  </p>
+  </h3>
+  
+  <h3>
+    <strong>role:</strong>
+    <%= @user.role %>
+  </h3>
+  
+  <h3>
+    <strong>Phonenumber:</strong>
+    <%= @user.phonenumber %>
+  </h3>
+  <h3>
+    <strong>Status:</strong>
+    <%= @user.status %>
+  </h3>
   
 </div>
 
-<%= link_to 'Edit', edit_user_path(@user) %>
+<h3>&nbsp;
+<%= link_to "Edit", edit_user_path(@user), class: "btn btn-primary "%></h3>
 
 
 

@@ -24,8 +24,9 @@ class User < ActiveRecord::Base
   # has_secure_password automatically adds an authenticate method to the corresponding model objects.
   # This method determines if a given password is valid for a particular user by computing its digest and comparing the result to password_digest in the database.
 
-  validates :password, presence: true, length: {minimum: 6}, allow_nil: true
-
+  validates :password, presence: true, length: {minimum: 6}, allow_nil: true,confirmation: true
+  validates_confirmation_of :password
+  
   def self.filter_by_type(type)
     User.where("role = :type", type: type)
   end

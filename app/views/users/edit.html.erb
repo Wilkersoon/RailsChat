@@ -13,39 +13,58 @@
         <% @user.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+       </ul>
+      </div>
+   <% end %>
+<h3>
+<p>
+    <%= form.label :name %>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= form.text_field :email %>
+</p>
+</h3>
+<h3>
   <p>
-    <%= form.label :name %><br>
+    <%= form.label :email %>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <%= form.text_field :email %>
   </p>
-
+</h3>
+<h3>
   <p>
-    <%= form.label :email %><br>
-    <%= form.text_field :email %>
+    <%= form.label :password %>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= form.password_field :password, placeholder: "输入密码" %>
   </p>
-
+</h3>
+<h3>
+    <%= form.label :password_confirmation, "Confirmation" %>
+        &nbsp;
+    <%= form.password_field :password_confirmation %>
+</h3>
+<%
+if(current_user.role==5)
+%>
+<h3>
   <p>
-    <%= form.label :password %><br>
-    <%= form.text_field :password, placeholder: "输入密码" %>
+    <%= form.label :role %>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= form.text_field :role %>
   </p>
-  
+</h3>
+<%end%>
 
-
+<h3>
   <p>
-    <%= form.label :phonenumber %><br>
+    <%= form.label :phonenumber %>
     <%= form.text_field :phonenumber %>
   </p>
-
+</h3>
+<h3>
   <p>
     <%= form.submit "Save changes", class: "btn btn-large btn-primary" %>
   </p>
-
+</h3>
 <% end %>
-
-<%= gravatar_for @user %>
-<a href="http://gravatar.com/emails">change</a>
 </div>
-</div>s
+</div>
